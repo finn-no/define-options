@@ -26,10 +26,19 @@ describe('validate', function () {
         expectValidate({'test': '?|string'}, null).not.to.throw();
     })
 
+    it('should not throw if an optional value without specified type exists', function () {
+        expectValidate({'test': '*'}, {'test': 'foo'}).not.to.throw();
+    });
+
     it('should throw when definition has an unknown type', function () {
         expect(function () {
             validateFactory({'foo': 'bar'});
         }).to.throw('Invalid type: \'bar\'');
+    });
+
+    it('should add docstring to error message when it exists', function () {
+        expectValidate({'test': 'string - This is a test string'}, null).to.throw('DOC: This is a test string');
+        expectValidate({'test': 'string   -   This is a test string'}, null).to.throw('DOC: This is a test string');
     });
 
     it('should validate number type', function () {

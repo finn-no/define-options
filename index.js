@@ -5,13 +5,15 @@ var is = {
     'number'   : function (n) { return !isNaN(n) && (typeof n == 'number' || n instanceof Number); },
     'object'   : function (o) { return typeof o == 'object'; },
     'string'   : function (s) { return typeof s == 'string' || s instanceof String; },
-    '?'        : function (v) { return v == null; }
+    '?'        : function (v) { return v == null; },
+    '*'        : function () { return true; }
 };
 var rArrayWithType = /[a-z]+\[\]$/;
+var rDocString = /\s*-\s*/;
 
 module.exports = function (def, required) {
     Object.keys(def).forEach(function (key) {
-        var type = def[key];
+        var type = def[key].split(rDocString)[0];
         type.split('|').forEach(function (type) {
             if (!(type.replace('[]','') in is)) {
                 throw new Error('Invalid type: \'' + type + '\'');
@@ -26,10 +28,12 @@ module.exports = function (def, required) {
 
 
         function validateKey (key) {
-            validateType(key, opts[key], def[key]);
+            var typeDef = def[key].split(rDocString);
+            validateType(key, opts[key], typeDef[0], typeDef[1]);
         }
 
-        function validateType (key, value, shouldBe) {
+        function validateType (key, value, shouldBe, docString) {
+            docString = (docString ? '. DOC: ' + docString : '');
             var correctType = shouldBe.split('|').some(function (type) {
                 if (rArrayWithType.test(type)) {
                     type = type.replace('[]','');
@@ -39,9 +43,9 @@ module.exports = function (def, required) {
             });
             if (correctType) { return; }
             if (value == null) {
-                throw new TypeError(key + ' is required. Valid types: ' + shouldBe);
+                throw new TypeError(key + ' is required. Valid types: ' + shouldBe + docString);
             }
-            throw new TypeError(key + ' has to be of type ' + shouldBe + ' but was ' + typeof value);
+            throw new TypeError(key + ' has to be of type ' + shouldBe + ' but was ' + typeof value + docString);
         }
     };
 };
