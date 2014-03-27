@@ -21,7 +21,7 @@ if a consumer is using an option with the wrong type, or a required option is mi
             anObject        : 'object',
             aFunction       : 'function',
             aBboolean       : 'boolean'
-        }, true /* options is required */);
+        });
 
     function yourAPI(options) {
       validateOpts(options); // throws an error if options doesn't validate
@@ -29,9 +29,13 @@ if a consumer is using an option with the wrong type, or a required option is mi
       // do your stuff
     }
 
-# Options can be null/undefined
+# Optional options object
+If all options are optional, the null will not throw an error.
 
-    var validateOpts = defineOpts({ /*...*/ }, false /* options is optional */);
+    var validateOpts = defineOpts({ foo: '?|string' });
+    validateOpts();               //all OK
+    validateOpts({foo: 'bar'});   // all OK
+    validateOpts({foo: 123});     // Exception: foo has to be of type ?|string but was number
 
 # Valid types
 

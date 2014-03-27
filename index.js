@@ -5,7 +5,7 @@ var is = {
     'number'   : function (n) { return !isNaN(n) && (typeof n == 'number' || n instanceof Number); },
     'object'   : function (o) { return typeof o == 'object'; },
     'string'   : function (s) { return typeof s == 'string' || s instanceof String; },
-    '?'        : function () { return true; }
+    '?'        : function (v) { return v == null; }
 };
 var rArrayWithType = /[a-z]+\[\]$/;
 
@@ -20,11 +20,8 @@ module.exports = function (def, required) {
     });
 
     return function validateOpts (opts) {
-        if (required && !opts) {
-            throw new Error('Object expected');
-        }
-
         var keys = Object.keys(def);
+        opts = opts || {};
         keys.forEach(validateKey);
 
 
@@ -40,9 +37,11 @@ module.exports = function (def, required) {
                 }
                 return is[type](value);
             });
-            if (!correctType) {
-                throw new TypeError(key + ' has to be of type ' + shouldBe + ' but was ' + typeof value);
+            if (correctType) { return; }
+            if (value == null) {
+                throw new TypeError(key + ' is required. Valid types: ' + shouldBe);
             }
+            throw new TypeError(key + ' has to be of type ' + shouldBe + ' but was ' + typeof value);
         }
     };
 };
