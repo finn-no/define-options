@@ -47,3 +47,12 @@ If all options are optional, the null will not throw an error.
 Just add [] after the type
 
     'array[]', 'boolean[]', 'function[]', 'number[]', 'object[]', 'string[]'
+
+# Releasing
+
+    npm run build
+    git add dist/
+    git commit -m "Updated dist files"
+    npm version [<newversion> | major | minor | patch]
+    git push --follow-tags origin master
+    npm publish
