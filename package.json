@@ -1,6 +1,6 @@
 {
   "name": "define-options",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Define valid properties for an options litteral, and return a function that can validate the options",
   "main": "index.js",
   "scripts": {
