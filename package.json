@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run",
     "watch": "./node_modules/karma/bin/karma start",
-    "umd": "./node_modules/.bin/umd defineOpts index.js dist/define-options.js",
+    "umd": "./node_modules/.bin/umd defineOpts -c index.js dist/define-options.js",
     "min": "./node_modules/.bin/uglifyjs dist/define-options.js -o dist/define-options.min.js",
     "build": "npm run umd && npm run min"
   },

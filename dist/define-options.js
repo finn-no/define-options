@@ -1,4 +1,4 @@
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.defineOpts=e()}}(function(){var define,module,exports;
+!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.defineOpts=e()}}(function(){var define,module,exports;module={exports:(exports={})};
 var is = {
     'array'    : function (a) { return Array.isArray(a); },
     'boolean'  : function (b) { return typeof b == 'boolean' || b instanceof Boolean; },
@@ -51,4 +51,4 @@ module.exports = function (def, required) {
     };
 };
 
-});
+return module.exports;});
