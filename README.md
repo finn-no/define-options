@@ -10,7 +10,7 @@ error message what they did wrong instead of searching for docs.
 
 # API
 
-    var defineOpts   = require('define-opts');
+    var defineOpts   = require('define-options');
     var validateOpts = defineOpts({
             optionalParam   : '*             - This parameter can be null, undefined or any value',
             optionalString  : '?|string      - This is an optional string',
