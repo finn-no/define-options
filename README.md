@@ -1,7 +1,7 @@
 define-options
 ==============
 
-Micro lib to define valid properties for an options litteral, and return a function that can validate the options.
+Micro lib to define valid properties for an options literal, and return a function that can validate the options.
 
 The main benefit is self-documenting code. Users of your library doesn't have to scan through the code to see what
 properties from the options object that is used throughout the code. As a bonus you can easily throw an error early
